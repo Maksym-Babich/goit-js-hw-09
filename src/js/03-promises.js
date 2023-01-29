@@ -2,19 +2,15 @@ import Notiflix from 'notiflix';
 
 const createPromise = function (position, delay) {
   const shouldResolve = Math.random() > 0.3;
-  if (shouldResolve) {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (shouldResolve) {
         resolve({ position, delay });
-      }, delay);
-    });
-  } else {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject({ position, delay });
-      }, delay);
-    });
-  }
+      }
+      reject({ position, delay });
+    }, delay);
+  });
 };
 
 const refs = {
@@ -31,7 +27,7 @@ const onFormSubmit = function (event) {
   const amount = Number(refs.amount.value);
 
   for (let i = 1; i <= amount; i += 1) {
-    createPromise(i, delay + step * i)
+    createPromise(i, delay + step * (i - 1))
       .then(({ position, delay }) => {
         Notiflix.Notify.success(
           `✅ Fulfilled promise ${position} in ${delay}ms`

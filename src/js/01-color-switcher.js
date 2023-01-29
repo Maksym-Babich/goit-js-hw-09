@@ -5,6 +5,7 @@ const refs = {
 };
 
 let intervalID = null;
+refs.btnStop.disabled = true;
 
 const getRandomHexColor = function () {
   return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
@@ -16,11 +17,13 @@ const bodyColorChanger = function () {
 const onStartButtonClick = function () {
   intervalID = setInterval(bodyColorChanger, 1000);
   refs.btnStart.disabled = true;
+  refs.btnStop.disabled = false;
 };
 
 const onStopButtonClick = function () {
   clearInterval(intervalID);
   refs.btnStart.disabled = false;
+  refs.btnStop.disabled = true;
 };
 
 refs.btnStart.addEventListener('click', onStartButtonClick);

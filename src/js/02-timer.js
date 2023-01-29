@@ -73,6 +73,7 @@ const onCountdownStarted = function () {
 
 const onStartButtonClick = function () {
   intervalID = setInterval(onCountdownStarted, 1000);
+  refs.btnStart.disabled = true;
 };
 
 const options = {
